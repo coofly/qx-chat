@@ -68,11 +68,12 @@ function onClickSendMessage () {
 		return $('#login-modal').modal('show');
 	}
     var edit = $("#input-edit");
-    if ("" == edit.val()) {
-        return;
-    }
-	say(edit.val());
-    addMessage(g_nickname, getLocalHMS(), edit.val());
+	if ("" == edit.val()) {
+		return;
+	}
+	var content = xssEscape(edit.val());
+	say(content);
+    addMessage(g_nickname, getLocalHMS(), content);
     edit.val("");
 }
 
@@ -82,8 +83,8 @@ function onClickApplyNickname () {
         $("#nickname-error").show();
         $('#nickname-edit').focus();
         return;
-    };
-	changeNickname($('#nickname-edit').val());
+    }
+	changeNickname(xssEscape($('#nickname-edit').val()));
 }
 
 function onClickChangeNickname() {

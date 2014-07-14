@@ -2,14 +2,16 @@
  * Created by coofly on 2014/7/12.
  */
 var io = require('socket.io')();
+var xssEscape = require('xss-escape');
 
 var nickname_list = new Array();
 
 function HasNickname(_nickname) {
 	for(var i = 0; i < nickname_list.length; i++)
 	{
-		if(nickname_list[i] == _nickname)
+		if(nickname_list[i] == _nickname) {
 			return true;
+		}
 	}
 	return false;
 }
@@ -37,10 +39,11 @@ io.on('connection', function(_socket){
 
 	_socket.on('change_nickname', function(_nickname){
 		_nickname = _nickname.trim();
+		_nickname = xssEscape(_nickname);
 		console.log(_socket.id + ': change_nickname(' + _nickname + ')');
 		var name_len = _nickname.replace(/[^\u0000-\u00ff]/g,"tt").length;
-		if(name_len < 6 || name_len > 16){
-			return _socket.emit('change_nickname_error', '请填写正确的昵称，应为6到16个字符。');
+		if(name_len < 4 || name_len > 16){
+			return _socket.emit('change_nickname_error', '请填写正确的昵称，应为4到16个字符。');
 		}
 
 		if(_socket.nickname == _nickname){
@@ -72,6 +75,7 @@ io.on('connection', function(_socket){
 
 	_socket.on('say', function(_content){
 		_content = _content.trim();
+		_content = xssEscape(_content);
 		console.log(_socket.id + ': say(' + _content + ')');
 		_socket.broadcast.emit('user_say', _socket.nickname, _content);
 	});
