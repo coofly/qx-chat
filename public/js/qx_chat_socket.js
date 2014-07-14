@@ -7,7 +7,11 @@ console.log('server: ' + chat_server);
 var socket = io.connect(chat_server);
 
 socket.on('need_nickname', function(){
-	$('#login-modal').modal('show');
+	if (null == $.cookie('chat_nickname')){
+		$('#login-modal').modal('show');
+	} else {
+		changeNickname($.cookie('chat_nickname'));
+	}
 });
 
 socket.on('server_message', function(_message){
@@ -23,7 +27,7 @@ socket.on('change_nickname_error', function(_error_msg){
 
 socket.on('change_nickname_done', function(_old_name, _new_nickname){
 	console.log('change_nickname_done(' + _new_nickname + ',' + _old_name + ')');
-	g_nickname = _new_nickname;
+	$.cookie('chat_nickname', _new_nickname);
 	$('#login-modal').modal('hide');
 	$('#my-nickname').html('昵称：' + _new_nickname);
 

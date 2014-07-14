@@ -1,5 +1,3 @@
-var g_nickname = "";
-
 //滚动聊天栏到最底部
 function chatBodyToBottom() {
     var height = $('.chat-body').prop("scrollHeight");
@@ -53,17 +51,14 @@ function useUserList(_user_list) {
 }
 
 function updateListCount() {
-	var list_count = $('.list-table').find('tr').length;
-	if (g_nickname != '' && g_nickname != null){
-		list_count = list_count + 1;
-	}
+	var list_count = $('.list-table').find('tr').length + 1;
 	$('#list-count').text("当前在线：" + list_count + "人");
 }
 
 //各种元素响应---------------------------------------------------------
 function onClickSendMessage () {
     //return;
-	if ('' == g_nickname) {
+	if ('' == $.cookie('chat_nickname') || null == $.cookie('chat_nickname')) {
 		return $('#login-modal').modal('show');
 	}
     var edit = $("#input-edit");
@@ -89,7 +84,7 @@ function onClickApplyNickname () {
 		$("#nickname-error").show();
 		return;
 	}
-	if (name == g_nickname) {
+	if (name == $.cookie('chat_nickname')) {
 		$("#nickname-error").text("你本来就叫这个。");
 		$("#nickname-error").show();
 	}
