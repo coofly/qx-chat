@@ -3,6 +3,10 @@
  */
 var socket = io.connect('http://chat.coofly.com:3000');
 
+socket.on('need_nickname', function(){
+	$('#login-modal').modal('show');
+});
+
 socket.on('server_message', function(_message){
 	addServerMessage(getLocalHMS(), _message);
 });
@@ -18,25 +22,23 @@ socket.on('change_nickname_done', function(_old_name, _new_nickname){
 	console.log('change_nickname_done(' + _new_nickname + ',' + _old_name + ')');
 	g_nickname = _new_nickname;
 	$('#login-modal').modal('hide');
-	$('#my-nickname').text('昵称：' + _new_nickname);
+	$('#my-nickname').html('昵称：' + _new_nickname);
+
 	if (_old_name != null && _old_name != "") {
 		addServerMessage(getLocalHMS(), '[' + _old_name + '] 改名为 [' + _new_nickname + ']');
 	}
 	updateListCount();
 });
 
-socket.on('say_error', function(_error_msg){
-	console.log('say_error : ' + _error_msg);
-});
-
-socket.on('say_done', function(){
-	console.log('say_done');
+socket.on('say_done', function(_nick_name, _content){
+	console.log('user_say(' + _nick_name + ', ' + _content + ')');
+	addMessage(_nick_name, getLocalHMS(), _content);
 });
 
 socket.on('user_list', function(_list){
-	console.log('user_list(' + _list + ')');
-	var user_list = eval("(" + _list + ")");
-	useUserList(user_list);
+	console.log(_list);
+	//var user_list = eval("(" + _list + ")");
+	useUserList(_list);
 });
 
 socket.on('user_change_nickname', function(_old_nick_name, _new_nick_name){
@@ -50,12 +52,14 @@ socket.on('user_join', function(_nick_name){
 	console.log('user_join(' + _nick_name + ')');
 	addUserToList(_nick_name);
 	updateListCount();
+	addServerMessage(getLocalHMS(), '[' + _nick_name + '] 进入了聊天室。');
 });
 
 socket.on('user_quit', function(_nick_name){
 	console.log('user_quit(' + _nick_name + ')');
 	removeListUser(_nick_name);
 	updateListCount();
+	addServerMessage(getLocalHMS(), '[' + _nick_name + '] 离开了聊天室。');
 });
 
 socket.on('user_say', function(_nick_name, _content){

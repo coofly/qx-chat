@@ -11,7 +11,7 @@ function addMessage(_name, _time, _content) {
     msg_list.append(
         '<div class="clearfix msg-wrap"><div class="msg-head">' + 
         '<span class="msg-name label label-primary pull-left">' + 
-        '<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;' + _name + '</span>' + 
+        '<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;' + _name + '</span>' +
         '<span class="msg-time label label-default pull-left">' + 
         '<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;' + _time + '</span>' + 
         '</div><div class="msg-content">'+ _content + '</div></div>'
@@ -68,29 +68,38 @@ function onClickSendMessage () {
 		return $('#login-modal').modal('show');
 	}
     var edit = $("#input-edit");
-	if ("" == edit.val()) {
+	var content = edit.val();
+	if ("" == content) {
 		return;
 	}
-	var content = xssEscape(edit.val());
 	say(content);
-    addMessage(g_nickname, getLocalHMS(), content);
     edit.val("");
 }
 
 function onClickApplyNickname () {
-    if ("" == $('#nickname-edit').val()) {
+	var name = $('#nickname-edit').val();
+    if ("" == name) {
 	    $("#nickname-error").text("请填写昵称。");
         $("#nickname-error").show();
         $('#nickname-edit').focus();
         return;
     }
-	changeNickname(xssEscape($('#nickname-edit').val()));
+	var name_len = getStringLength(name);
+	if (name_len < 4 || name_len > 16) {
+		$("#nickname-error").text("请填写正确的昵称，应为4到16个字符。");
+		$("#nickname-error").show();
+		return;
+	}
+	if (name == g_nickname) {
+		$("#nickname-error").text("你本来就叫这个。");
+		$("#nickname-error").show();
+	}
+	changeNickname(name);
 }
 
 function onClickChangeNickname() {
 	$('#login-modal').modal('show');
 }
-
 
 //各种事件响应----------------------------------------------------------
 $("div[role='dialog']").on("show.bs.modal", function() {  
@@ -124,9 +133,4 @@ document.onkeydown = function() {
 }
 
 //调试代码--------------------------------------------------------------
-function main () {
-    $("#input-edit").focus();
-    $('#login-modal').modal('show');
-}
-
-main();
+$("#input-edit").focus();
