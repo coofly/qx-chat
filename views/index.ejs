@@ -1,137 +1,140 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>千寻聊天室</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>千寻聊天室</title>
 
-  <!-- Bootstrap -->
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/css/qx_chat.css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/qx_chat.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
 <body>
-  <div class="container">
-    <div class="row" style="margin-top:100px">
+<div class="container">
+	<div class="row" style="margin-top:100px">
 
-      <!-- 聊天区 -->
-      <div class="col-sm-8">
-        <!-- 聊天内容 -->
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <span class="glyphicon glyphicon-earphone"></span>
-            &nbsp;聊天内容
-          </div>
-          <div class="panel-body chat-body">
-            <div class="msg-list-body">
+		<!-- 聊天区 -->
+		<div class="col-sm-8">
+			<!-- 聊天内容 -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span class="glyphicon glyphicon-earphone"></span>
+					&nbsp;聊天内容
+				</div>
+				<div class="panel-body chat-body">
+					<div class="msg-list-body">
 
-              <!--<div class="clearfix msg-wrap">-->
-                <!--<div class="msg-head">-->
-                  <!--<span class="msg-name label label-primary pull-left">-->
-                    <!--<span class="glyphicon glyphicon-user"></span>-->
-                    <!--&nbsp;Sc千寻-->
-                  <!--</span>-->
-                  <!--<span class="msg-time label label-default pull-left">-->
-                    <!--<span class="glyphicon glyphicon-time"></span>-->
-                    <!--&nbsp;21:34:15-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--<div class="msg-content">test</div>-->
-              <!--</div>-->
+						<!--<div class="clearfix msg-wrap">-->
+						<!--<div class="msg-head">-->
+						<!--<span class="msg-name label label-primary pull-left">-->
+						<!--<span class="glyphicon glyphicon-user"></span>-->
+						<!--&nbsp;Sc千寻-->
+						<!--</span>-->
+						<!--<span class="msg-time label label-default pull-left">-->
+						<!--<span class="glyphicon glyphicon-time"></span>-->
+						<!--&nbsp;21:34:15-->
+						<!--</span>-->
+						<!--</div>-->
+						<!--<div class="msg-content">test</div>-->
+						<!--</div>-->
 
 
-            </div>
-          </div>
-        </div>
+					</div>
+				</div>
+			</div>
 
-        <!-- 输入框 -->
-        <div class="input-group input-group-lg">
-          <input type="text" class="form-control" id="input-edit" placeholder="请输入聊天内容">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" onclick="onClickSendMessage()">
-              发送
-              <span class="glyphicon glyphicon-send"></span>
-            </button>
-          </span>
-        </div>
-        <!-- /input-group --> </div>
+			<!-- 输入框 -->
+			<div class="input-group input-group-lg">
+				<input type="text" class="form-control" id="input-edit" placeholder="请输入聊天内容">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="onClickSendMessage()">
+	                    发送
+	                    <span class="glyphicon glyphicon-send"></span>
+                    </button>
+                </span>
+			</div>
+		</div>
 
-      <!-- 个人信息 -->
-      <div class="col-sm-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <span class="glyphicon glyphicon-user"></span>
-            &nbsp;个人信息
-          </div>
-          <div class="panel-body">
-            <div class="col-sm-9"><h5 id="my-nickname">昵称：还未设置</h5></div>
-            <div class="col-sm-3"><button class="btn btn-default" onclick="onClickChangeNickname()">修改</button></div>
-          </div>
-        </div>
-      </div>
+		<!-- 个人信息 -->
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span class="glyphicon glyphicon-user"></span>
+					&nbsp;个人信息
+				</div>
+				<div class="panel-body">
+					<div class="col-sm-9"><h5 id="my-nickname">昵称：还未设置</h5></div>
+					<div class="col-sm-3">
+						<button class="btn btn-default" onclick="onClickChangeNickname()">修改</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-      <!-- 在线列表 -->
-      <div class="col-sm-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <span class="glyphicon glyphicon-list"></span>
-            &nbsp;在线名单
-          </div>
-          <div class="panel-body list-body">
-            <table class="table table-hover list-table">
-                <!--<tr>-->
-                  <!--<td>test</td>-->
-                <!--</tr>-->
-            </table>
-          </div>
-          <div class="panel-footer" id="list-count">当前在线：0人</div>
-        </div>
-      </div>
-    </div>
-  </div>
+		<!-- 在线列表 -->
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span class="glyphicon glyphicon-list"></span>
+					&nbsp;在线名单
+				</div>
+				<div class="panel-body list-body">
+					<table class="table table-hover list-table">
+						<!--<tr>-->
+						<!--<td>test</td>-->
+						<!--</tr>-->
+					</table>
+				</div>
+				<div class="panel-footer" id="list-count">当前在线：0人</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only"></span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">请设置聊天昵称</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-8 col-sm-push-2">
-              <div class="alert alert-danger" role="alert" id="nickname-error" style="display: none">
-                <span class="glyphicon glyphicon-remove"></span>
-                请填写昵称
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon">昵称</span>
-                <input type="text" id="nickname-edit" class="form-control" placeholder="请输入昵称"></div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="onClickApplyNickname()">应用昵称</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="/js/jquery-1.11.1.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/common.js"></script>
-  <script src="/js/qx_chat_socket.js"></script>
-  <script src="/js/qx_chat_ui.js"></script>
+<!-- Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span>
+					<span class="sr-only"></span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">请设置聊天昵称</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-8 col-sm-push-2">
+						<div class="alert alert-danger" role="alert" id="nickname-error" style="display: none">
+							<span class="glyphicon glyphicon-remove"></span>
+							请填写昵称
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon">昵称</span>
+							<input type="text" id="nickname-edit" class="form-control" placeholder="请输入昵称">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="onClickApplyNickname()">应用昵称</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/qx_chat_socket.js"></script>
+<script src="/js/qx_chat_ui.js"></script>
 </body>
 </html>

@@ -54,7 +54,6 @@ function useUserList(_user_list) {
 
 function updateListCount() {
 	var list_count = $('.list-table').find('tr').length;
-	console.log(list_count);
 	if (g_nickname != '' && g_nickname != null){
 		list_count = list_count + 1;
 	}

@@ -1,7 +1,10 @@
 /**
  * Created by coofly on 2014/7/12.
  */
-var socket = io.connect('http://chat.coofly.com:3000');
+
+var chat_server = 'http://' + location.hostname + ':3000';
+console.log('server: ' + chat_server);
+var socket = io.connect(chat_server);
 
 socket.on('need_nickname', function(){
 	$('#login-modal').modal('show');
@@ -36,8 +39,6 @@ socket.on('say_done', function(_nick_name, _content){
 });
 
 socket.on('user_list', function(_list){
-	console.log(_list);
-	//var user_list = eval("(" + _list + ")");
 	useUserList(_list);
 });
 

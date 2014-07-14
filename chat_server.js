@@ -4,11 +4,10 @@
 var io = require('socket.io')();
 var xssEscape = require('xss-escape');
 
-var nickname_list = new Array();
+var nickname_list = [];
 
 function HasNickname(_nickname) {
-	for(var i = 0; i < nickname_list.length; i++)
-	{
+	for(var i = 0; i < nickname_list.length; i++) {
 		if(nickname_list[i] == _nickname) {
 			return true;
 		}
@@ -27,13 +26,13 @@ function RemoveNickname(_nickname) {
 io.on('connection', function(_socket){
 	console.log(_socket.id + ': connection');
 	_socket.emit('user_list', nickname_list);
-	_socket.emit('server_message', '欢迎来到千寻聊天室~');
 	_socket.emit('need_nickname');
+	_socket.emit('server_message', '欢迎来到千寻聊天室~');
 
 	_socket.on('disconnect', function() {
 		console.log(_socket.id + ': disconnect');
 		if(_socket.nickname != null && _socket.nickname != "") {
-			_socket.broadcast.emit('user_quit', _socket.nickname)
+			_socket.broadcast.emit('user_quit', _socket.nickname);
 			RemoveNickname(_socket.nickname);
 		}
 	});
