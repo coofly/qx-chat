@@ -5,4 +5,4 @@
 
 This chat room is constructed by node.js socket.io and Bootstrap.
 
-运行实例：http://chat.coofly.com:3000
+运行实例：http://chat.coofly.com
