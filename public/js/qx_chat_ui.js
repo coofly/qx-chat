@@ -115,16 +115,14 @@ $("#login-modal").on("shown.bs.modal", function (e) {
     $('#nickname-edit').focus();
 });
 
-document.onkeydown = function () {
-    if (event.keyCode == 13) {
-        if ("input-edit" == document.activeElement.id) {
-            onClickSendMessage();
-        }
-        else if ("nickname-edit" == document.activeElement.id) {
-            onClickApplyNickname();
-        }
-    }
-};
+$('#input-edit').keydown(function(_event) {
+   if(13 == _event.keyCode) {
+       onClickSendMessage();
+   }
+});
 
-//调试代码--------------------------------------------------------------
-$("#input-edit").focus();
+$('#nickname-edit').keydown(function(_event) {
+    if(13 == _event.keyCode) {
+        onClickApplyNickname();
+    }
+});
