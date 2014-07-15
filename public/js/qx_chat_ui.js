@@ -7,124 +7,124 @@ function chatBodyToBottom() {
 function addMessage(_name, _time, _content) {
     var msg_list = $(".msg-list-body");
     msg_list.append(
-        '<div class="clearfix msg-wrap"><div class="msg-head">' + 
-        '<span class="msg-name label label-primary pull-left">' + 
-        '<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;' + _name + '</span>' +
-        '<span class="msg-time label label-default pull-left">' + 
-        '<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;' + _time + '</span>' + 
-        '</div><div class="msg-content">'+ _content + '</div></div>'
-        );
+            '<div class="clearfix msg-wrap"><div class="msg-head">' +
+            '<span class="msg-name label label-primary pull-left">' +
+            '<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;' + _name + '</span>' +
+            '<span class="msg-time label label-default pull-left">' +
+            '<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;' + _time + '</span>' +
+            '</div><div class="msg-content">' + _content + '</div></div>'
+    );
     chatBodyToBottom();
 }
 
 function addServerMessage(_time, _content) {
-	var msg_list = $(".msg-list-body");
-	msg_list.append(
-			'<div class="clearfix msg-wrap"><div class="msg-head">' +
-			'<span class="msg-name label label-danger pull-left">' +
-			'<span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;系统消息</span>' +
-			'<span class="msg-time label label-default pull-left">' +
-			'<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;' + _time + '</span>' +
-			'</div><div class="msg-content">'+ _content + '</div></div>'
-	);
-	chatBodyToBottom();
+    var msg_list = $(".msg-list-body");
+    msg_list.append(
+            '<div class="clearfix msg-wrap"><div class="msg-head">' +
+            '<span class="msg-name label label-danger pull-left">' +
+            '<span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;系统消息</span>' +
+            '<span class="msg-time label label-default pull-left">' +
+            '<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;' + _time + '</span>' +
+            '</div><div class="msg-content">' + _content + '</div></div>'
+    );
+    chatBodyToBottom();
 }
 
 function removeListUser(_user) {
-	$(".list-table tr").each(function(){
-		if (_user == $(this).find('td').text()){
-			$(this).remove();
-		}
-	});
+    $(".list-table tr").each(function () {
+        if (_user == $(this).find('td').text()) {
+            $(this).remove();
+        }
+    });
 }
 
 function addUserToList(_user) {
-	$(".list-table").append('<tr><td>' + _user + '</td></tr>');
+    $(".list-table").append('<tr><td>' + _user + '</td></tr>');
 }
 
 function useUserList(_user_list) {
-	$(".list-table").html("");
-	for(var i = 0; i < _user_list.length; i++) {
-		addUserToList(_user_list[i]);
-	}
-	updateListCount();
+    $(".list-table").html("");
+    for (var i = 0; i < _user_list.length; i++) {
+        addUserToList(_user_list[i]);
+    }
+    updateListCount();
 }
 
 function updateListCount() {
-	var list_count = $('.list-table').find('tr').length + 1;
-	$('#list-count').text("当前在线：" + list_count + "人");
+    var list_count = $('.list-table').find('tr').length + 1;
+    $('#list-count').text("当前在线：" + list_count + "人");
 }
 
 //各种元素响应---------------------------------------------------------
-function onClickSendMessage () {
+function onClickSendMessage() {
     //return;
-	if ('' == $.cookie('chat_nickname') || null == $.cookie('chat_nickname')) {
-		return $('#login-modal').modal('show');
-	}
+    if ('' == $.cookie('chat_nickname') || null == $.cookie('chat_nickname')) {
+        return $('#login-modal').modal('show');
+    }
     var edit = $("#input-edit");
-	var content = edit.val();
-	if ("" == content) {
-		return;
-	}
-	say(content);
+    var content = edit.val();
+    if ("" == content) {
+        return;
+    }
+    say(content);
     edit.val("");
 }
 
-function onClickApplyNickname () {
-	var name = $('#nickname-edit').val();
+function onClickApplyNickname() {
+    var name = $('#nickname-edit').val();
     if ("" == name) {
-	    $("#nickname-error").text("请填写昵称。");
+        $("#nickname-error").text("请填写昵称。");
         $("#nickname-error").show();
         $('#nickname-edit').focus();
         return;
     }
-	var name_len = getStringLength(name);
-	if (name_len < 4 || name_len > 16) {
-		$("#nickname-error").text("请填写正确的昵称，应为4到16个字符。");
-		$("#nickname-error").show();
-		return;
-	}
-	if (name == $.cookie('chat_nickname')) {
-		$("#nickname-error").text("你本来就叫这个。");
-		$("#nickname-error").show();
-	}
-	changeNickname(name);
+    var name_len = getStringLength(name);
+    if (name_len < 4 || name_len > 16) {
+        $("#nickname-error").text("请填写正确的昵称，应为4到16个字符。");
+        $("#nickname-error").show();
+        return;
+    }
+    if (name == $.cookie('chat_nickname')) {
+        $("#nickname-error").text("你本来就叫这个。");
+        $("#nickname-error").show();
+    }
+    changeNickname(name);
 }
 
 function onClickChangeNickname() {
-	$('#login-modal').modal('show');
+    $('#login-modal').modal('show');
 }
 
 //各种事件响应----------------------------------------------------------
-$("div[role='dialog']").on("show.bs.modal", function() {  
+$("div[role='dialog']").on("show.bs.modal", function () {
     // 具体css样式调整  
-    $(this).css({  
-        "display": "block",  
-        "margin-top": function() {  
-            return ($(this).height() / 3);  
-        }  
-    });  
+    $(this).css({
+        "display": "block",
+        "margin-top": function () {
+            return ($(this).height() / 3);
+        }
+    });
 });
 
 $("#login-modal").on("show.bs.modal", function (e) {
     $('#nickname-edit').val("");
     $("#nickname-error").hide();
-})
+});
 
 $("#login-modal").on("shown.bs.modal", function (e) {
     $('#nickname-edit').focus();
-})
+});
 
-document.onkeydown = function() {
-    if(event.keyCode == 13) {
+document.onkeydown = function () {
+    if (event.keyCode == 13) {
         if ("input-edit" == document.activeElement.id) {
             onClickSendMessage();
         }
         else if ("nickname-edit" == document.activeElement.id) {
             onClickApplyNickname();
-        };
+        }
     }
-}
+};
 
 //调试代码--------------------------------------------------------------
 $("#input-edit").focus();
