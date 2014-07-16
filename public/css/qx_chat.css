@@ -53,3 +53,9 @@
     margin-top: -1px;
     margin-bottom: 0px;
 }
+
+.emotion-panel{
+    position:fixed;
+    display:none;
+    z-index:100;
+}

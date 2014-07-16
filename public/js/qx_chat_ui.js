@@ -1,7 +1,8 @@
 //滚动聊天栏到最底部
 function chatBodyToBottom() {
-    var height = $('.chat-body').prop("scrollHeight");
-    $('.chat-body').prop('scrollTop', height);
+    var chat_body = $('.chat-body');
+    var height = chat_body.prop("scrollHeight");
+    chat_body.prop('scrollTop', height);
 }
 
 function addMessage(_name, _time, _content) {
@@ -97,9 +98,42 @@ function onClickChangeNickname() {
     $('#login-modal').modal('show');
 }
 
+function onClickEmotionButton() {
+    var emotion_panel = $('.emotion-panel');
+    if(0 == emotion_panel.length) {
+        emotion_panel = CreateEmotionPanel();
+    }
+
+    if (emotion_panel.is(':visible')) {
+        emotion_panel.hide(60);
+    } else {
+        var emotion_btn = $('#emotion-btn');
+        emotion_panel.css("left", emotion_btn.offset().left);
+        emotion_panel.css("top", emotion_btn.offset().top - emotion_panel.height() - 5);
+        emotion_panel.show(60);
+    }
+}
+
+function CreateEmotionPanel() {
+    var emotion_html = '<div class="panel panel-default emotion-panel">' +
+        '<div class="panel-body"><table class="table-condensed table-bordered"><tbody>';
+
+    for(var row = 0; row < 6; row++) {
+        emotion_html += '<tr>';
+        for(var column = 0; column < 10; column++) {
+            emotion_html += '<td><img src="img\\qqface\\1.gif"></td>';
+        }
+        emotion_html += '</tr>';
+    }
+    emotion_html += '</tbody></table></div></div>';
+
+    $('body').append(emotion_html);
+    return $('.emotion-panel');
+}
+
 //各种事件响应----------------------------------------------------------
 $("div[role='dialog']").on("show.bs.modal", function () {
-    // 具体css样式调整  
+    // 具体css样式调整
     $(this).css({
         "display": "block",
         "margin-top": function () {
