@@ -57,5 +57,5 @@
 .emotion-panel{
     position:fixed;
     display:none;
-    z-index:100;
+    z-index:200;
 }

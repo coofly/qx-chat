@@ -7,6 +7,7 @@ function chatBodyToBottom() {
 
 function addMessage(_name, _time, _content) {
     var msg_list = $(".msg-list-body");
+	_content = QxEmotion.Parse(_content);
     msg_list.append(
             '<div class="clearfix msg-wrap"><div class="msg-head">' +
             '<span class="msg-name label label-primary pull-left">' +
@@ -20,6 +21,7 @@ function addMessage(_name, _time, _content) {
 
 function addServerMessage(_time, _content) {
     var msg_list = $(".msg-list-body");
+	_content = QxEmotion.Parse(_content);
     msg_list.append(
             '<div class="clearfix msg-wrap"><div class="msg-head">' +
             '<span class="msg-name label label-danger pull-left">' +
@@ -114,23 +116,6 @@ function onClickEmotionButton() {
     }
 }
 
-function CreateEmotionPanel() {
-    var emotion_html = '<div class="panel panel-default emotion-panel">' +
-        '<div class="panel-body"><table class="table-condensed table-bordered"><tbody>';
-
-    for(var row = 0; row < 6; row++) {
-        emotion_html += '<tr>';
-        for(var column = 0; column < 10; column++) {
-            emotion_html += '<td><img src="img\\qqface\\1.gif"></td>';
-        }
-        emotion_html += '</tr>';
-    }
-    emotion_html += '</tbody></table></div></div>';
-
-    $('body').append(emotion_html);
-    return $('.emotion-panel');
-}
-
 //各种事件响应----------------------------------------------------------
 $("div[role='dialog']").on("show.bs.modal", function () {
     // 具体css样式调整
@@ -162,3 +147,5 @@ $('#nickname-edit').keydown(function(_event) {
         onClickApplyNickname();
     }
 });
+
+QxEmotion($('#emotion-btn'), $('#input-edit'));
