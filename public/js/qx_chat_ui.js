@@ -71,22 +71,24 @@ function onClickSendMessage() {
 }
 
 function onClickApplyNickname() {
-    var name = $('#nickname-edit').val();
+	var nickname_edit = $('#nickname-edit');
+	var nickname_error = $("#nickname-error");
+    var name = nickname_edit.val();
     if ("" == name) {
-        $("#nickname-error").text("请填写昵称。");
-        $("#nickname-error").show();
-        $('#nickname-edit').focus();
+	    nickname_error.text("请填写昵称。");
+	    nickname_error.show();
+	    nickname_edit.focus();
         return;
     }
     var name_len = getStringLength(name);
     if (name_len < 4 || name_len > 16) {
-        $("#nickname-error").text("请填写正确的昵称，应为4到16个字符。");
-        $("#nickname-error").show();
+	    nickname_error.text("请填写正确的昵称，应为4到16个字符。");
+	    nickname_error.show();
         return;
     }
     if (name == $.cookie('chat_nickname')) {
-        $("#nickname-error").text("你本来就叫这个。");
-        $("#nickname-error").show();
+	    nickname_error.text("你本来就叫这个。");
+	    nickname_error.show();
     }
     changeNickname(name);
 }
@@ -106,12 +108,12 @@ $("div[role='dialog']").on("show.bs.modal", function () {
     });
 });
 
-$("#login-modal").on("show.bs.modal", function (e) {
+$("#login-modal").on("show.bs.modal", function (_event) {
     $('#nickname-edit').val("");
     $("#nickname-error").hide();
 });
 
-$("#login-modal").on("shown.bs.modal", function (e) {
+$("#login-modal").on("shown.bs.modal", function (_event) {
     $('#nickname-edit').focus();
 });
 

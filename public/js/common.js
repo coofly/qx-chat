@@ -6,8 +6,7 @@ function appendZero(obj) {
 function getLocalHMS() {
     var time = (new Date()).getTime();
     var d = new Date();
-    var hms = appendZero(d.getHours()) + ":" + appendZero(d.getMinutes()) + ":" + appendZero(d.getSeconds());
-    return hms
+    return appendZero(d.getHours()) + ":" + appendZero(d.getMinutes()) + ":" + appendZero(d.getSeconds());
 }
 
 function getStringLength(_str) {
