@@ -28,7 +28,7 @@
 
 	QxEmotion.Parse = function (_text) {
 		var re_ret;
-		var re = new RegExp("[[]#(.+?)]","gm");
+		var re = new RegExp("[[]#(.+?)]","gm"); //js的正则真TMD操蛋..
 		var emotion_name = '';
 		var emotion_path = '';
 		while((re_ret = re.exec(_text)) != null){
