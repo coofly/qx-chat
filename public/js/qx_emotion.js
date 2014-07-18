@@ -3,35 +3,34 @@
  */
 (function () {
 	var QxEmotion = function (_emotion_btn, _edit) {
-		_emotion_btn.on('click', function(){
-			var emotion_panel = $('.emotion-panel');
-			if(0 == emotion_panel.length) {
-				emotion_panel = QxEmotion._CreateEmotionPanel();
-				emotion_panel.find('td').on('click', function () {
-					var emotion_name = $(this).children('img').attr('alt');
-					_edit.val(_edit.val() + '[#' + emotion_name + ']');
-					_edit.focus();
-					emotion_panel.hide(60);
-
-				});
-			}
-			if (emotion_panel.is(':visible')) {
-				emotion_panel.hide(60);
-			} else {
-				var emotion_btn = $('#emotion-btn');
-				emotion_panel.css("left", emotion_btn.offset().left);
-				emotion_panel.css("top", emotion_btn.offset().top - emotion_panel.height() - 5);
-				emotion_panel.show(60);
-			}
-		});
+        QxEmotion.Bind(_emotion_btn, _edit);
 	};
+
+    QxEmotion.Bind = function (_emotion_btn, _edit) {
+        _emotion_btn.on('click', function(){
+            var emotion_panel = $('.emotion-panel');
+            if(0 == emotion_panel.length) {
+                emotion_panel = QxEmotion._CreateEmotionPanel();
+                //挂接click事件
+                emotion_panel.find('td').on('click', function () {
+                    var emotion_name = $(this).children('img').attr('alt');
+                    _edit.val(_edit.val() + '[#' + emotion_name + ']');
+                    _edit.focus();
+                    emotion_panel.hide(60);
+                });
+                //直接调用的话会出现位置错误,可能是初始化没完毕?
+                return setTimeout(function () {QxEmotion._ToggleEmotionPanel(emotion_panel, _emotion_btn);}, 100);
+            }
+            QxEmotion._ToggleEmotionPanel(emotion_panel, _emotion_btn);
+        });
+    };
 
 	QxEmotion.Parse = function (_text) {
 		var re_ret;
 		var re = new RegExp("[[]#(.+?)]","gm"); //js的正则真TMD操蛋..
 		var emotion_name = '';
 		var emotion_path = '';
-		while((re_ret = re.exec(_text)) != null){
+		while(null != (re_ret = re.exec(_text))){
 			emotion_name = re_ret[1];
 			if(undefined != QxEmotion.data[emotion_name]){
 				emotion_path = QxEmotion.path + QxEmotion.data[emotion_name];
@@ -104,6 +103,16 @@
 
 		return $('.emotion-panel');
 	};
+
+    QxEmotion._ToggleEmotionPanel = function (_emotion_panel, _emotion_btn) {
+        if (_emotion_panel.is(':visible')) {
+            _emotion_panel.hide(60);
+        } else {
+            _emotion_panel.css("left", _emotion_btn.offset().left);
+            _emotion_panel.css("top", _emotion_btn.offset().top - _emotion_panel.height() - 5);
+            _emotion_panel.show(60);
+        }
+    };
 
 	window.QxEmotion = QxEmotion;
 })();

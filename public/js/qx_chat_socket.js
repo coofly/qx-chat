@@ -71,12 +71,18 @@ socket.on('user_quit', function (_nick_name) {
 socket.on('user_say', function (_nick_name, _content) {
     console.log('user_say(' + _nick_name + ', ' + _content + ')');
     addMessage(_nick_name, getLocalHMS(), _content);
+    if ("hidden" == document[GetVisibilityKey()]) {
+	    Notify.show({icon:'/img/qx_chat.png',
+		    'title':'千寻聊天室',
+		    'message':_nick_name + '：' + _content,
+		    'autoclose':3});
+    }
 });
 
 function changeNickname(_nickname) {
     socket.emit('change_nickname', _nickname);
-};
+}
 
 function say(_content) {
     socket.emit('say', _content);
-};
+}

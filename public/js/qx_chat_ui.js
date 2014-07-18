@@ -1,4 +1,7 @@
 //滚动聊天栏到最底部
+
+var g_hide = false;
+
 function chatBodyToBottom() {
     var chat_body = $('.chat-body');
     var height = chat_body.prop("scrollHeight");
@@ -60,7 +63,6 @@ function updateListCount() {
 
 //各种元素响应---------------------------------------------------------
 function onClickSendMessage() {
-    //return;
     if ('' == $.cookie('chat_nickname') || null == $.cookie('chat_nickname')) {
         return $('#login-modal').modal('show');
     }
@@ -94,26 +96,11 @@ function onClickApplyNickname() {
 	    nickname_error.show();
     }
     changeNickname(name);
+    Notify.request();
 }
 
 function onClickChangeNickname() {
     $('#login-modal').modal('show');
-}
-
-function onClickEmotionButton() {
-    var emotion_panel = $('.emotion-panel');
-    if(0 == emotion_panel.length) {
-        emotion_panel = CreateEmotionPanel();
-    }
-
-    if (emotion_panel.is(':visible')) {
-        emotion_panel.hide(60);
-    } else {
-        var emotion_btn = $('#emotion-btn');
-        emotion_panel.css("left", emotion_btn.offset().left);
-        emotion_panel.css("top", emotion_btn.offset().top - emotion_panel.height() - 5);
-        emotion_panel.show(60);
-    }
 }
 
 //各种事件响应----------------------------------------------------------
