@@ -116,7 +116,8 @@ var Notify = {
 
 				if (opts.autoclose)
 					setTimeout(function () {
-						n.close();
+						//n.close();    //有的chrome浏览器下无效，不知道原因
+                        n.cancel();
 					}, opts.autoclose * 1000);
 			}
 		}//End If

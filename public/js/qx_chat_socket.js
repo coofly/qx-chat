@@ -75,7 +75,11 @@ socket.on('user_say', function (_nick_name, _content) {
 	    Notify.show({icon:'/img/qx_chat.png',
 		    'title':'千寻聊天室',
 		    'message':_nick_name + '：' + _content,
-		    'autoclose':3});
+		    'autoclose':3,
+            'onclick': function () {
+                window.focus();
+                this.cancel();
+            }});
     }
 });
 
