@@ -116,8 +116,12 @@ var Notify = {
 
 				if (opts.autoclose)
 					setTimeout(function () {
-						//n.close();    //有的chrome浏览器下无效，不知道原因
-                        n.cancel();
+                        //有的chrome浏览器下colse无效，貌似不统一
+                        if (undefined !== typeof n.colse){
+                            n.close();
+                        } else if(undefined !== typeof n.cancel) {
+                            n.cancel();
+                        }
 					}, opts.autoclose * 1000);
 			}
 		}//End If

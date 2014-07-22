@@ -78,7 +78,11 @@ socket.on('user_say', function (_nick_name, _content) {
 		    'autoclose':3,
             'onclick': function () {
                 window.focus();
-                this.cancel();
+                if (undefined !== typeof this.colse){
+                    this.close();
+                } else if(undefined !== typeof this.cancel) {
+                    this.cancel();
+                }
             }});
     }
 });
