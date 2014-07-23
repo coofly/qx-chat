@@ -117,9 +117,9 @@ var Notify = {
 				if (opts.autoclose)
 					setTimeout(function () {
                         //有的chrome浏览器下colse无效，貌似不统一
-                        if (undefined !== typeof n.colse){
+                        if (n.colse){
                             n.close();
-                        } else if(undefined !== typeof n.cancel) {
+                        } else if(n.cancel) {
                             n.cancel();
                         }
 					}, opts.autoclose * 1000);
