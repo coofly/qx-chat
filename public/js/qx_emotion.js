@@ -13,15 +13,15 @@
                 emotion_panel = QxEmotion._CreateEmotionPanel();
                 //挂接click事件
                 emotion_panel.find('td').on('click', function () {
+                    emotion_panel.hide(60);
                     var emotion_name = $(this).children('img').attr('alt');
                     _edit.val(_edit.val() + '[#' + emotion_name + ']');
                     _edit.focus();
-                    emotion_panel.hide(60);
                 });
-                //直接调用的话会出现位置错误,可能是初始化没完毕?
                 return setTimeout(function () {QxEmotion._ToggleEmotionPanel(emotion_panel, _emotion_btn);}, 100);
+            } else {
+                QxEmotion._ToggleEmotionPanel(emotion_panel, _emotion_btn);
             }
-            QxEmotion._ToggleEmotionPanel(emotion_panel, _emotion_btn);
         });
     };
 
